@@ -5,6 +5,7 @@ import ad.spring.practicaFinal.repository.VideojuegosRepository;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -21,5 +22,10 @@ public class VideojuegosRestController {
     @GetMapping("/videojuegos")
     List<Videojuegos> getAll(){
         return (List<Videojuegos>) videojuegosRepository.findAll();
+    }
+
+    @GetMapping("/videojuegos/{id}")
+    Videojuegos one(@PathVariable Long id){
+        return videojuegosRepository.findById(Math.toIntExact(id)).orElseThrow(() -> new RuntimeException(String.valueOf(id)));
     }
 }
