@@ -9,3 +9,6 @@ INSERT INTO consumidor(nombre)
 
 INSERT INTO videojuegos_has_companyias
     VALUES(1, 1), (2, 1), (3, 2), (4, 2);
+
+INSERT INTO videojuegos_has_consumidores
+    VALUES(1, 1), (2, 1), (3, 4), (4, 2);

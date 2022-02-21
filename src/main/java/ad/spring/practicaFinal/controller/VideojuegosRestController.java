@@ -4,9 +4,7 @@ import ad.spring.practicaFinal.domain.Videojuegos;
 import ad.spring.practicaFinal.repository.VideojuegosRepository;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,5 +25,24 @@ public class VideojuegosRestController {
     @GetMapping("/videojuegos/{id}")
     Videojuegos one(@PathVariable Long id){
         return videojuegosRepository.findById(Math.toIntExact(id)).orElseThrow(() -> new RuntimeException(String.valueOf(id)));
+    }
+
+    @PostMapping("/videojuegosi")
+    Videojuegos newVideojuego(@RequestBody Videojuegos newVideojuego){
+        log.info("newVideojuego");
+        return videojuegosRepository.save(newVideojuego);
+    }
+
+    @PutMapping("/videojuegos-replace/{id}")
+    Videojuegos replaceVideojuego(@RequestBody Videojuegos newVideojuego, @PathVariable Long id){
+        return videojuegosRepository.findById(Math.toIntExact(id))
+                .map(videojuegos -> {
+                    videojuegos.setNombre(newVideojuego.getNombre());
+                    return videojuegosRepository.save(videojuegos);
+                })
+                .orElseGet(()->{
+                    newVideojuego.setId_videojuegos(Math.toIntExact(id));
+                    return videojuegosRepository.save(newVideojuego);
+                });
     }
 }
