@@ -27,13 +27,13 @@ public class VideojuegosRestController {
         return videojuegosRepository.findById(Math.toIntExact(id)).orElseThrow(() -> new RuntimeException(String.valueOf(id)));
     }
 
-    @PostMapping("/videojuegosi")
+    @PostMapping("/videojuegos")
     Videojuegos newVideojuego(@RequestBody Videojuegos newVideojuego){
         log.info("newVideojuego");
         return videojuegosRepository.save(newVideojuego);
     }
 
-    @PutMapping("/videojuegos-replace/{id}")
+    @PutMapping("/videojuegos/{id}")
     Videojuegos replaceVideojuego(@RequestBody Videojuegos newVideojuego, @PathVariable Long id){
         return videojuegosRepository.findById(Math.toIntExact(id))
                 .map(videojuegos -> {

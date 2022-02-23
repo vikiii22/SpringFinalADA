@@ -1,5 +1,5 @@
 INSERT INTO Companyias(nombre)
-    VALUES('Ubisoft'), ('RIOT');
+    VALUES('Ubisoft'), ('RIOT'), ('Naugty Dogs');
 
 INSERT INTO Videojuegos(nombre)
     VALUES('Far Cry'), ('Assasins Creed'), ('LOL'), ('Valorant');
