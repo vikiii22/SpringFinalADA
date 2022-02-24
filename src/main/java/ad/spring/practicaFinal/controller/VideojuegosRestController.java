@@ -4,9 +4,12 @@ import ad.spring.practicaFinal.domain.Videojuegos;
 import ad.spring.practicaFinal.repository.VideojuegosRepository;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class VideojuegosRestController {
@@ -24,7 +27,11 @@ public class VideojuegosRestController {
 
     @GetMapping("/videojuegos/{id}")
     Videojuegos one(@PathVariable Long id){
-        return videojuegosRepository.findById(Math.toIntExact(id)).orElseThrow(() -> new RuntimeException(String.valueOf(id)));
+        Optional<Videojuegos>videojuegos=videojuegosRepository.findById(Math.toIntExact(id));
+        if (!videojuegos.isPresent()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Videojuegos not found.");
+        }
+        return videojuegos.get();
     }
 
     @PostMapping("/videojuegos")
